@@ -133,17 +133,17 @@ class TollTransaction(models.Model):
         ("SUCCESS", "Success"),
         ("FAILED", "Failed"),
     ]
-    STATUS_CHOICES = [
-       ("DETECTED" , "Detecetd"),
-       ("IDENTIFIED" , "Identified"),
+    STATE_CHOICES = [
+       ("DETECTED", "Detected"),
+       ("IDENTIFIED", "Identified"),
        ("VERIFIED", "Verified"),
-       ("TOLL_CALCULATED" , "Toll Calculated"),
+       ("TOLL_CALCULATED", "Toll Calculated"),
        ("PAYMENT_PROCESSING", "Payment Processing"),
-       ("PASSED" , " Passed"),
-       ("UNKNOW_RFID" , "Unknown RFID"),
-       ("INVALID_VEHICLE" , "Invalid Vehicle"),
+       ("PASSED", "Passed"),
+       ("UNKNOWN_RFID", "Unknown RFID"),
+       ("INVALID_VEHICLE", "Invalid Vehicle"),
        ("INSUFFICIENT_BALANCE", "Insufficient Balance"),
-       ("PAYMENT_FAILED", "Payment Failed")
+       ("PAYMENT_FAILED", "Payment Failed"),
     ]
     vehicle = models.ForeignKey(
         Vehicle,
@@ -167,8 +167,8 @@ class TollTransaction(models.Model):
         choices=STATUS_CHOICES
     )
     state = models.CharField(
-        max_length = 30,
-        choices=STATUS_CHOICES,
+        max_length=30,
+        choices=STATE_CHOICES,
         default="DETECTED"
     )
 
