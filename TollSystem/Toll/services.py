@@ -74,12 +74,14 @@ def process_toll(rfid_tag, toll_plaza):
     # -------------------------
 
     fsm.transition("PAYMENT_PROCESSING")
-
-    wallet = vehicle.owner.wallet
-
-    # -------------------------
-    # 6. CHECK BALANCE
-    # -------------------------
+    try:
+        wallet = vehicle.owner.wallet
+    except Exception:
+        return {
+            "success": False,
+            "state": "PAYMENT_FAILED",
+            "message": "Wallet not found"
+        }
 
     if wallet.balance < amount:
 
