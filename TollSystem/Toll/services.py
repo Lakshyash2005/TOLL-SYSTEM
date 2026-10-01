@@ -126,4 +126,4 @@ def process_toll(rfid_tag, toll_plaza):
         "message": "Toll payment successful",
         "amount": amount,
         "transaction": transaction_record
-    }
+    }   

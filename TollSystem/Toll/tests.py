@@ -205,3 +205,29 @@ class VehicleListAPITests(APITestCase):
         )
 
         self.assertEqual(response.status_code, 400)
+class TollProcessAPITests(APITestCase):
+
+    def setUp(self):
+        # Your existing setup code
+        ...
+
+    def test_successful_toll_payment(self):
+        # Your existing successful payment test
+        ...
+
+    def test_unknown_rfid_does_not_deduct_wallet_balance(self):
+        response = self.client.post(
+            "/api/toll/process/",
+            {
+                "rfid_tag": "UNKNOWN-RFID-999",
+                "toll_plaza_id": self.plaza.id,
+            },
+            format="json"
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(response.data["success"])
+        self.assertEqual(response.data["state"], "UNKNOWN_RFID")
+
+        self.wallet.refresh_from_db()
+        self.assertEqual(self.wallet.balance, 500)
