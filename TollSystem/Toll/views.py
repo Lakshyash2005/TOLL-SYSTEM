@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from .permission import IsOwner
 from .models import TollPlaza
 from .serializers import TollProcessSerializer
 from .services import process_toll
@@ -10,7 +11,7 @@ from .serializers import VehicleSerializer
 
 
 class VehicleListAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated ,IsOwner]
 
     def get(self, request):
         vehicles = Vehicle.objects.filter(owner=request.user)

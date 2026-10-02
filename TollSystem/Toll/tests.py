@@ -9,6 +9,7 @@ from .models import (
     TollRule,
     Wallet,
     TollTransaction,
+    UserProfile,
 )
 
 from .services import process_toll
@@ -22,6 +23,7 @@ class TollProcessingTests(TestCase):
             username="testowner",
             password="testpassword"
         )
+        UserProfile.objects.create(user=self.user, role=UserProfile.OWNER)
 
         self.vehicle = Vehicle.objects.create(
             registration_number="TEST1234",
@@ -142,6 +144,7 @@ class VehicleListAPITests(APITestCase):
             username="api_test_owner",
             password="testpassword"
         )
+        UserProfile.objects.create(user=self.user, role=UserProfile.OWNER)
 
         self.vehicle = Vehicle.objects.create(
             registration_number="API1234",
@@ -212,6 +215,7 @@ class TollProcessAPITests(APITestCase):
             username="toll_api_owner",
             password="testpassword"
         )
+        UserProfile.objects.create(user=self.user, role=UserProfile.OWNER)
 
         self.vehicle = Vehicle.objects.create(
             registration_number="TOLL1234",
