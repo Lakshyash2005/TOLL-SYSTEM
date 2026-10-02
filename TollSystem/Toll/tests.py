@@ -208,12 +208,55 @@ class VehicleListAPITests(APITestCase):
 class TollProcessAPITests(APITestCase):
 
     def setUp(self):
-        # Your existing setup code
-        ...
+        self.user = User.objects.create_user(
+            username="toll_api_owner",
+            password="testpassword"
+        )
+
+        self.vehicle = Vehicle.objects.create(
+            registration_number="TOLL1234",
+            rfid_tag="TOLL-RFID-001",
+            vehicle_type="CAR",
+            owner=self.user,
+            is_active=True
+        )
+
+        self.plaza = TollPlaza.objects.create(
+            name="API Test Toll Plaza",
+            location="API Test Location",
+            is_active=True
+        )
+
+        TollRule.objects.create(
+            toll_plaza=self.plaza,
+            vehicle_type="CAR",
+            amount=Decimal("80.00"),
+            is_active=True
+        )
+
+        self.wallet = Wallet.objects.create(
+            user=self.user,
+            balance=Decimal("500.00")
+        )
+
+        self.client.force_authenticate(user=self.user)
 
     def test_successful_toll_payment(self):
-        # Your existing successful payment test
-        ...
+        response = self.client.post(
+            "/api/toll/process/",
+            {
+                "rfid_tag": self.vehicle.rfid_tag,
+                "toll_plaza_id": self.plaza.id,
+            },
+            format="json"
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data["success"])
+        self.assertEqual(response.data["state"], "PASSED")
+
+        self.wallet.refresh_from_db()
+        self.assertEqual(self.wallet.balance, Decimal("420.00"))
 
     def test_unknown_rfid_does_not_deduct_wallet_balance(self):
         response = self.client.post(
@@ -230,4 +273,51 @@ class TollProcessAPITests(APITestCase):
         self.assertEqual(response.data["state"], "UNKNOWN_RFID")
 
         self.wallet.refresh_from_db()
-        self.assertEqual(self.wallet.balance, 500)
+        self.assertEqual(self.wallet.balance, Decimal("500.00"))
+    def test_insufficient_balance_does_not_deduct_wallet(self):
+        self.wallet.balance = Decimal("20.00")
+        self.wallet.save()
+        response = self.client.post(
+            "/api/toll/process/",
+            {
+                "rfid_tag": self.vehicle.rfid_tag,
+                "toll_plaza_id": self.plaza.id,
+            },
+            format="json"
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(response.data["success"])
+        self.assertEqual(
+            response.data["state"],
+            "INSUFFICIENT_BALANCE"
+        )
+
+        self.wallet.refresh_from_db()
+        self.assertEqual(self.wallet.balance, Decimal("20.00"))
+        transaction_record = TollTransaction.objects.get(
+            vehicle=self.vehicle,
+            toll_plaza=self.plaza
+        )
+
+        self.assertEqual(transaction_record.status, "FAILED")
+        self.assertEqual(
+            transaction_record.state,
+            "INSUFFICIENT_BALANCE"
+        )
+
+    def test_unauthenticated_user_cannot_process_toll(self):
+        self.client.force_authenticate(user=None)
+
+        response = self.client.post(
+            "/api/toll/process/",
+            {
+                "rfid_tag": self.vehicle.rfid_tag,
+                "toll_plaza_id": self.plaza.id,
+            },
+            format="json"
+        )
+
+        self.assertIn(response.status_code, [401, 403])
+        self.wallet.refresh_from_db()
+        self.assertEqual(self.wallet.balance, Decimal("500.00"))
+        self.assertEqual(TollTransaction.objects.count(), 0)
