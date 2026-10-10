@@ -2,7 +2,9 @@ from decimal import Decimal
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from django.test import TestCase
+from rest_framework import status
 
+from .models import Vehicle, UserProfile
 from .models import (
     Vehicle,
     TollPlaza,
@@ -140,11 +142,16 @@ class TollProcessingTests(TestCase):
 class VehicleListAPITests(APITestCase):
 
     def setUp(self):
+
         self.user = User.objects.create_user(
             username="api_test_owner",
             password="testpassword"
         )
-        UserProfile.objects.create(user=self.user, role=UserProfile.OWNER)
+
+        UserProfile.objects.create(
+            user = self.user,
+            role = UserProfile.OWNER
+        )
 
         self.vehicle = Vehicle.objects.create(
             registration_number="API1234",
@@ -188,6 +195,8 @@ class VehicleListAPITests(APITestCase):
             registration_number = "NEW1234"
         )
         self.assertEqual(vehicle.owner, self.user)
+    
+    
 
     def test_unauthenticated_user_cannot_list_vehicles(self):
         response = self.client.get("/api/vehicles/")
@@ -208,6 +217,70 @@ class VehicleListAPITests(APITestCase):
         )
 
         self.assertEqual(response.status_code, 400)
+    def test_staff_cannot_access_owner_vehicle_api(self):
+        staff = User.objects.create_user(
+            username="api_test_staff",
+            password="testpass123"
+        )
+
+        UserProfile.objects.create(
+            user=staff,
+            role=UserProfile.STAFF
+        )
+
+        self.client.force_authenticate(user=staff)
+
+        response = self.client.get("/api/vehicles/")
+
+        self.assertIn(response.status_code, [401, 403])
+
+    def test_admin_cannot_access_owner_vehicle_api(self):
+        admin = User.objects.create_user(
+            username="api_test_admin",
+            password="testpass123"
+        )
+
+        UserProfile.objects.create(
+            user=admin,
+            role=UserProfile.ADMIN
+        )
+
+        self.client.force_authenticate(user=admin)
+
+        response = self.client.get("/api/vehicles/")
+
+        self.assertIn(response.status_code, [401, 403])
+    def test_owner_can_only_see_own_vehicles(self):
+        other_user = User.objects.create_user(
+            username="another_owner",
+            password="testpass123"
+        )
+
+        UserProfile.objects.create(
+            user=other_user,
+            role=UserProfile.OWNER
+        )
+
+        Vehicle.objects.create(
+            registration_number="OTHER123",
+            rfid_tag="OTHER-RFID-001",
+            vehicle_type="CAR",
+            owner=other_user,
+        )
+
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.get("/api/vehicles/")
+
+        self.assertEqual(response.status_code, 200)
+
+        registrations = [
+            vehicle["registration_number"]
+            for vehicle in response.data
+        ]
+
+        self.assertIn("API1234", registrations)
+        self.assertNotIn("OTHER123", registrations)
 class TollProcessAPITests(APITestCase):
 
     def setUp(self):
@@ -325,3 +398,24 @@ class TollProcessAPITests(APITestCase):
         self.wallet.refresh_from_db()
         self.assertEqual(self.wallet.balance, Decimal("500.00"))
         self.assertEqual(TollTransaction.objects.count(), 0)
+    def test_inactive_or_missing_toll_plaza(self):
+        response = self.client.post(
+            "/api/toll/process/",
+            {
+                "rfid_tag": self.vehicle.rfid_tag,
+                "toll_plaza_id": 99999,
+            },
+            format="json",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_404_NOT_FOUND
+        )
+
+        self.wallet.refresh_from_db()
+
+        self.assertEqual(
+            self.wallet.balance,
+            Decimal("500.00")
+        )

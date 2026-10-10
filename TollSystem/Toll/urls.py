@@ -1,15 +1,23 @@
-from django.urls import path 
-from .views import VehicleListAPIView , TollProcessAPIView
+from django.urls import path
+from .views import VehicleListAPIView, TollProcessAPIView, LoginAPIView, RegisterAPIView
 
-urlpatterns = [ 
+urlpatterns = [
+    path(
+        "login/",
+        LoginAPIView.as_view(),
+        name="login",
+    ),
     path(
         "vehicles/",
         VehicleListAPIView.as_view(),
-        name = "vehicle-list",
+        name="vehicle-list",
     ),
-     path(
+    path(
         "toll/process/",
         TollProcessAPIView.as_view(),
         name="toll-process",
     ),
+    path(
+        "register/" , RegisterAPIView.as_view() ,name="register"
+    )
 ]
