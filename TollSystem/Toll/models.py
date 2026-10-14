@@ -30,23 +30,24 @@ class UserProfile(models.Model):
 
 class Vehicle(models.Model):
 
-    #Vehicle Type
     CAR = "CAR"
     BUS = "BUS"
     TRUCK = "TRUCK"
-    
+    MOTORCYCLE = "MOTORCYCLE"
+
     VEHICLE_TYPE_CHOICES = [
         (CAR, "CAR"),
         (BUS, "BUS"),
         (TRUCK, "TRUCK"),
+        (MOTORCYCLE, "MOTORCYCLE"),
     ]
-    
+
     registration_number = models.CharField(
         max_length=20,
         unique=True
     )
     vehicle_type = models.CharField(
-        max_length=10,
+        max_length=15,
         choices=VEHICLE_TYPE_CHOICES,
         default=CAR
     )
@@ -68,7 +69,7 @@ class Vehicle(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True
     )
-    
+
     def __str__(self):
         return self.registration_number
 
@@ -89,18 +90,21 @@ class TollRule(models.Model):
     toll_plaza = models.ForeignKey(
         TollPlaza,
         on_delete=models.CASCADE,
-        related_name= "toll_rules"
+        related_name="toll_rules"
     )
     vehicle_type = models.CharField(
-        max_length=10,
-        choices= Vehicle.VEHICLE_TYPE_CHOICES
+        max_length=15,
+        choices=Vehicle.VEHICLE_TYPE_CHOICES
     )
-    amount =  models.DecimalField(
+    amount = models.DecimalField(
         max_digits=10,
         decimal_places=2
     )
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("toll_plaza", "vehicle_type")
 
     def __str__(self):
         return f"{self.toll_plaza} - {self.vehicle_type} -₹{self.amount}"
@@ -187,4 +191,3 @@ class TollTransaction(models.Model):
             f"{self.vehicle.registration_number} - "
             f"{self.amount} - {self.status}"
         )
-    

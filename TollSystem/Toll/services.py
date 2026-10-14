@@ -5,6 +5,7 @@ from .fsm import TollStateMachine
 from .models import (
     TollRule,
     Vehicle,
+    Wallet,
     TollTransaction,
 )
 
@@ -23,6 +24,13 @@ def calculate_toll(vehicle, toll_plaza):
 def process_toll(rfid_tag, toll_plaza):
 
     fsm = TollStateMachine()
+
+    if not getattr(toll_plaza, "is_active", True):
+        return {
+            "success": False,
+            "state": "UNKNOWN_RFID",
+            "message": "Toll plaza not found or inactive"
+        }
 
     try:
         vehicle = Vehicle.objects.get(
@@ -64,61 +72,64 @@ def process_toll(rfid_tag, toll_plaza):
         return {
             "success": False,
             "state": "TOLL_CALCULATED",
-            "message": "No toll rule found"
+            "message": "No toll rule found for this vehicle type at this plaza"
         }
 
     fsm.transition("TOLL_CALCULATED")
 
     # -------------------------
-    # 5. PAYMENT PROCESSING
+    # 5. PAYMENT PROCESSING (atomic with row lock)
     # -------------------------
 
     fsm.transition("PAYMENT_PROCESSING")
+
     try:
-        wallet = vehicle.owner.wallet
-    except Exception:
+        with transaction.atomic():
+            # Row-level lock prevents concurrent over-deduction
+            wallet = Wallet.objects.select_for_update().get(
+                user=vehicle.owner
+            )
+
+            if wallet.balance < amount:
+                transaction_record = TollTransaction.objects.create(
+                    vehicle=vehicle,
+                    toll_plaza=toll_plaza,
+                    amount=amount,
+                    status="FAILED",
+                    state="INSUFFICIENT_BALANCE",
+                    failure_reason="Insufficient wallet balance"
+                )
+
+                return {
+                    "success": False,
+                    "state": "INSUFFICIENT_BALANCE",
+                    "message": "Insufficient wallet balance",
+                    "transaction": transaction_record
+                }
+
+            # -------------------------
+            # 7. PAYMENT SUCCESS
+            # -------------------------
+
+            wallet.balance -= amount
+            wallet.save(update_fields=["balance", "updated_at"])
+
+            fsm.transition("PASSED")
+
+            transaction_record = TollTransaction.objects.create(
+                vehicle=vehicle,
+                toll_plaza=toll_plaza,
+                amount=amount,
+                status="SUCCESS",
+                state=fsm.state
+            )
+
+    except Wallet.DoesNotExist:
         return {
             "success": False,
             "state": "PAYMENT_FAILED",
-            "message": "Wallet not found"
+            "message": "Wallet not found for vehicle owner"
         }
-
-    if wallet.balance < amount:
-
-        transaction_record = TollTransaction.objects.create(
-            vehicle=vehicle,
-            toll_plaza=toll_plaza,
-            amount=amount,
-            status="FAILED",
-            state="INSUFFICIENT_BALANCE",
-            failure_reason="Insufficient wallet balance"
-        )
-
-        return {
-            "success": False,
-            "state": "INSUFFICIENT_BALANCE",
-            "message": "Insufficient wallet balance",
-            "transaction": transaction_record
-        }
-
-    # -------------------------
-    # 7. PAYMENT SUCCESS
-    # -------------------------
-
-    with transaction.atomic():
-
-        wallet.balance -= amount
-        wallet.save()
-
-        fsm.transition("PASSED")
-
-        transaction_record = TollTransaction.objects.create(
-            vehicle=vehicle,
-            toll_plaza=toll_plaza,
-            amount=amount,
-            status="SUCCESS",
-            state=fsm.state
-        )
 
     return {
         "success": True,
@@ -126,4 +137,4 @@ def process_toll(rfid_tag, toll_plaza):
         "message": "Toll payment successful",
         "amount": amount,
         "transaction": transaction_record
-    }   
+    }
