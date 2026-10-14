@@ -1626,11 +1626,11 @@ function App() {
       <div className="app login-page">
         {showSignup ? (
           <form className="login-card" onSubmit={handleSignup} id="signup-form">
-            <div className="login-brand">
-              <span className="brand-icon">⬡</span>
-              <h1>TollFlow</h1>
+            <div className="login-brand" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: 12 }}>
+              <img src="/logo.png" alt="Tooly Logo" className="login-logo-img" />
+              <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: "var(--text)" }}>Tooly</h1>
+              <p className="login-sub" style={{ margin: "4px 0 0" }}>Create your account</p>
             </div>
-            <p className="login-sub">Create your account</p>
             <div className="form-group">
               <label htmlFor="signup-username">Username</label>
               <input id="signup-username" type="text" placeholder="Enter username" value={username} onChange={(e) => setUsername(e.target.value)} required autoComplete="username" />
@@ -1656,11 +1656,11 @@ function App() {
           </form>
         ) : (
           <form className="login-card" onSubmit={handleLogin} id="login-form">
-            <div className="login-brand">
-              <span className="brand-icon">⬡</span>
-              <h1>TollFlow</h1>
+            <div className="login-brand" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: 12 }}>
+              <img src="/logo.png" alt="Tooly Logo" className="login-logo-img" />
+              <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: "var(--text)" }}>Tooly</h1>
+              <p className="login-sub" style={{ margin: "4px 0 0" }}>Sign in to your account</p>
             </div>
-            <p className="login-sub">Sign in to your account</p>
             {signupMessage && <Alert type="success" style={{ marginBottom: 16 }}>{signupMessage}</Alert>}
             <div className="form-group">
               <label htmlFor="login-username">Username</label>
@@ -1790,9 +1790,9 @@ function App() {
         <aside className={`admin-sidebar ${adminSidebarOpen ? "open" : ""}`} id="admin-sidebar">
           <div className="admin-sidebar-header">
             <div className="navbar-brand" style={{ padding: 0 }}>
-              <span className="brand-icon" style={{ fontSize: "20px", color: "var(--accent-3)" }}>⬡</span>
+              <img src="/logo.png" alt="Tooly Logo" className="navbar-logo-img" />
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <span style={{ fontSize: "16px", fontWeight: 800, color: "var(--text)", letterSpacing: "-0.5px" }}>TollFlow</span>
+                <span style={{ fontSize: "16px", fontWeight: 800, color: "var(--text)", letterSpacing: "-0.5px", lineHeight: 1.1 }}>Tooly</span>
                 <span style={{ fontSize: "10px", fontWeight: 700, color: "var(--accent-3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Admin Console</span>
               </div>
             </div>
@@ -3069,8 +3069,11 @@ function App() {
       {/* ── Navbar ── */}
       <header className="navbar">
         <div className="navbar-brand">
-          <span className="brand-icon">⬡</span>
-          <h1>TollFlow</h1>
+          <img src="/logo.png" alt="Tooly Logo" className="navbar-logo-img" />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: "17px", fontWeight: 800, color: "var(--text)", letterSpacing: "-0.4px", lineHeight: 1.1 }}>Tooly</span>
+            <span style={{ fontSize: "10px", fontWeight: 700, color: "var(--accent)", letterSpacing: "0.06em", textTransform: "uppercase" }}>TollFlow Transit</span>
+          </div>
         </div>
         <nav aria-label="User primary navigation">
           {[
