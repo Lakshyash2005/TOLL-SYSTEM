@@ -2083,7 +2083,7 @@ function App() {
                             <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--accent-3)" }}>
                               Period Revenue Collected
                             </div>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#fff", marginTop: "4px" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "var(--text)", marginTop: "4px" }}>
                               ₹{Number(adminStats.range_revenue || 0).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </div>
                             <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px" }}>
@@ -3252,7 +3252,7 @@ function App() {
                   <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em", color: "var(--text-muted)", textTransform: "uppercase" }}>
                     Current FASTag Balance
                   </div>
-                  <div style={{ fontSize: "28px", fontWeight: 800, color: "#fff", marginTop: 2 }}>
+                  <div style={{ fontSize: "28px", fontWeight: 800, color: "var(--text)", marginTop: 2 }}>
                     ₹{Number(walletBalance).toFixed(2)}
                   </div>
                   <div style={{ fontSize: "11px", color: "var(--success)", fontWeight: 600, marginTop: 4 }}>
