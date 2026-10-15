@@ -3133,3 +3133,500 @@ select option:disabled {
   display: inline-block;
   box-shadow: 0 1px 2px rgba(202, 138, 4, 0.15);
 }
+
+/* ─────────────────────────────────────────────────────────────
+   COMPREHENSIVE RESPONSIVE DESIGN SYSTEM (ALL DEVICES)
+   Mobile (<480px), Small Tablet (<768px), Tablet/Laptop (<1024px)
+   ───────────────────────────────────────────────────────────── */
+
+/* Global container constraints to prevent viewport overflow on all devices */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+.app,
+.admin-layout,
+.login-page {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Touch target optimizations for mobile devices */
+button,
+.btn,
+.nav-link,
+.admin-nav-item,
+.operator-tab {
+  touch-action: manipulation;
+}
+
+/* ── TABLET / SMALL LAPTOPS (<= 1024px) ── */
+@media (max-width: 1024px) {
+  .dashboard {
+    padding: 24px 20px 48px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .user-analytics-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .admin-analytics-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .booth-terminal-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .booth-queue-col {
+    height: auto;
+    max-height: 480px;
+  }
+
+  .operator-banner-bar {
+    padding: 8px 20px;
+  }
+}
+
+/* ── TABLETS & LARGE MOBILE (<= 768px) ── */
+@media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Responsive Dual Portal Operator Header */
+  .operator-banner-bar {
+    padding: 8px 14px;
+  }
+
+  .operator-banner-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .operator-banner-left {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .operator-toggle-group {
+    width: 100%;
+    display: flex;
+    gap: 4px;
+  }
+
+  .operator-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 8px;
+    font-size: 12px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  .operator-banner-right {
+    display: none;
+  }
+
+  /* Responsive Main Navigation Header */
+  .navbar {
+    height: auto;
+    min-height: 58px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .navbar-brand {
+    flex: 1 1 auto;
+    gap: 8px;
+  }
+
+  .navbar-logo-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar-brand span:first-child {
+    font-size: 15px !important;
+  }
+
+  .navbar-brand span:last-child {
+    font-size: 9px !important;
+  }
+
+  .navbar-right {
+    order: 2;
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  .navbar-user {
+    font-size: 12px;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .navbar-badge {
+    display: none;
+  }
+
+  .nav-wallet-chip {
+    padding: 5px 9px;
+    gap: 6px;
+  }
+
+  .nav-wallet-chip .chip-label {
+    display: none;
+  }
+
+  .nav-wallet-chip .chip-val {
+    font-size: 12.5px;
+  }
+
+  /* Horizontal touch-scrollable tabs for sub-navigation */
+  .navbar nav {
+    order: 3;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    padding: 6px 0 2px;
+    border-top: 1px solid var(--border);
+  }
+
+  .navbar nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    flex-shrink: 0;
+  }
+
+  /* Dashboard View */
+  .dashboard {
+    padding: 16px 14px 44px;
+  }
+
+  .dashboard-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+  }
+
+  .dash-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .dash-actions button,
+  .dash-actions .btn {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+    min-height: 42px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    padding: 16px 14px;
+    gap: 12px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .card-value {
+    font-size: 22px;
+  }
+
+  .card-label {
+    font-size: 11px;
+  }
+
+  /* Quick Actions */
+  .user-quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  /* Admin Layout & Mobile Drawer */
+  .admin-layout {
+    position: relative;
+  }
+
+  .admin-toggle-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  .admin-sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 275px;
+    max-width: 82vw;
+    z-index: 1000 !important;
+    transform: translateX(-100%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0) !important;
+  }
+
+  .admin-sidebar-backdrop {
+    position: fixed !important;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65) !important;
+    z-index: 999 !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .admin-dashboard-container {
+    padding: 14px 12px 40px;
+  }
+
+  .admin-top-bar {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .admin-top-title h2 {
+    font-size: 16px;
+  }
+
+  .admin-top-title p {
+    font-size: 11px;
+  }
+
+  .admin-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .range-toggle {
+    width: 100%;
+    display: flex;
+  }
+
+  .range-btn {
+    flex: 1;
+    text-align: center;
+    padding: 6px 4px;
+    font-size: 11.5px;
+  }
+
+  .admin-search,
+  .filter-select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Full responsive tables */
+  .admin-table-wrap,
+  .vehicle-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm);
+  }
+
+  .admin-table,
+  .vehicle-table {
+    min-width: 580px;
+  }
+
+  .admin-table th,
+  .admin-table td,
+  .vehicle-table th,
+  .vehicle-table td {
+    padding: 10px 12px;
+  }
+
+  /* Modals on Mobile */
+  .modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .modal-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: var(--radius) var(--radius) 0 0;
+    margin: 0;
+  }
+
+  .modal-header {
+    padding: 14px 18px;
+  }
+
+  .modal-body {
+    padding: 16px 18px;
+  }
+
+  .modal-footer {
+    padding: 12px 18px;
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .modal-footer button,
+  .modal-footer .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  /* Profile layout */
+  .profile-container {
+    padding: 0 4px;
+  }
+
+  .profile-header-card {
+    padding: 16px;
+  }
+
+  .profile-identity-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .profile-grid-two-col {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ── SMALL MOBILE PHONES (<= 480px) ── */
+@media (max-width: 480px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .user-quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-actions button,
+  .dash-actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .dash-title {
+    font-size: 20px;
+  }
+
+  .dash-subtitle {
+    font-size: 12.5px;
+  }
+
+  /* Login / Signup Card */
+  .login-page {
+    padding: 16px;
+    align-items: center;
+  }
+
+  .login-card {
+    padding: 24px 18px;
+    border-radius: var(--radius);
+  }
+
+  .login-logo-img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+  }
+
+  .login-brand h1 {
+    font-size: 20px;
+  }
+
+  .login-sub {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .login-toggle {
+    font-size: 12.5px;
+  }
+
+  /* Quick recharge chips */
+  .recharge-quick-chips {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .btn-quick-chip {
+    padding: 7px 4px;
+    font-size: 11px;
+  }
+
+  /* Toll simulator detection metadata */
+  .booth-detection-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .gate-receipt-strip {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+/* ── EXTRA SMALL MOBILE (<= 360px) ── */
+@media (max-width: 360px) {
+  .navbar {
+    padding: 8px 10px;
+  }
+
+  .recharge-quick-chips {
+    grid-template-columns: 1fr;
+  }
+
+  .card-value {
+    font-size: 20px;
+  }
+}
