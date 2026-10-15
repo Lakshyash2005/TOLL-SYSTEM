@@ -45,12 +45,11 @@ class Command(BaseCommand):
                 "Use --force to update their role to ADMIN."
             )
 
-        if not created and options["force"]:
-            self.stdout.write(f"Updating existing user '{username}' to ADMIN role.")
-        else:
-            user.set_password(password)
-            user.email = email
-            user.save()
+        user.set_password(password)
+        user.email = email
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
 
         profile, _ = UserProfile.objects.get_or_create(user=user)
         profile.role = UserProfile.ADMIN
