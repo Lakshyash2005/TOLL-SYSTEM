@@ -23,6 +23,20 @@ services:
           name: tollsystem-db
           property: connectionString
 
+  - type: web
+    name: toll-system-frontend
+    runtime: static
+    rootDir: tollfrontend
+    buildCommand: npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://toll-system-backend.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
 databases:
   - name: tollsystem-db
     plan: free
