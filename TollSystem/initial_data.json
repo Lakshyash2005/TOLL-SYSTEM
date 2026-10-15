@@ -1,0 +1,568 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$dNj5Zjab7jKEOP4g6czDK2$tVqqinwu28GgLPLL/UvXF0sv++LoktAdgUhXRkkaEbM=",
+    "last_login": "2026-10-13T12:23:15.591Z",
+    "is_superuser": true,
+    "username": "admin1",
+    "first_name": "honey",
+    "last_name": ".",
+    "email": "shrivastavalakshya0909@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-09-22T08:52:49Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$pYoSzWQrkHdpbmfQcApwmT$4s6U0jBO5zByZrFhY4A3oa03oZq57Y4/+G2zFlsomP8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Lakshya09",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-10T20:21:44.969Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$AphxyoIc0sb2jPhRiDnqui$mUDlc8/IKjXKTyM4RTBJboImlq6fKOO3d2ngnbIs9pw=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@tollflow.local",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-10-13T18:11:22.274Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$KH7nFd3qvOxlhwp1ZkaMpL$0vqWI9DG7nwIawPHvTEkATJN/QnCU/NxDgrjSQSagUM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "driver1",
+    "first_name": "",
+    "last_name": "",
+    "email": "driver1@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-13T18:45:39.994Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$fX4K93v9jjHqnpKaoOmWrG$Mn8KmOLv3RD1dYgo42XOHpRTMJQ4Aifj2PMtQG8ckvM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "e2e_user_5e2a92",
+    "first_name": "UpdatedFirst",
+    "last_name": "UpdatedLast",
+    "email": "e2e_5e2a92@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-14T09:34:07.262Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Toll.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "role": "ADMIN"
+  }
+},
+{
+  "model": "Toll.userprofile",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "role": "OWNER"
+  }
+},
+{
+  "model": "Toll.userprofile",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "role": "ADMIN"
+  }
+},
+{
+  "model": "Toll.userprofile",
+  "pk": 6,
+  "fields": {
+    "user": 7,
+    "role": "OWNER"
+  }
+},
+{
+  "model": "Toll.vehicle",
+  "pk": 2,
+  "fields": {
+    "registration_number": "MP04AB1234",
+    "vehicle_type": "CAR",
+    "rfid_tag": "RFID002",
+    "owner": 1,
+    "is_active": true,
+    "created_at": "2026-09-24T18:43:06.618Z",
+    "updated_at": "2026-09-24T18:43:06.618Z"
+  }
+},
+{
+  "model": "Toll.vehicle",
+  "pk": 3,
+  "fields": {
+    "registration_number": "MP07ND5608",
+    "vehicle_type": "CAR",
+    "rfid_tag": "RFID2206",
+    "owner": 1,
+    "is_active": true,
+    "created_at": "2026-10-11T17:06:22.575Z",
+    "updated_at": "2026-10-11T17:06:22.575Z"
+  }
+},
+{
+  "model": "Toll.vehicle",
+  "pk": 4,
+  "fields": {
+    "registration_number": "MP07MH3055",
+    "vehicle_type": "CAR",
+    "rfid_tag": "RFID003",
+    "owner": 4,
+    "is_active": true,
+    "created_at": "2026-10-11T18:36:10.523Z",
+    "updated_at": "2026-10-11T18:36:10.523Z"
+  }
+},
+{
+  "model": "Toll.vehicle",
+  "pk": 7,
+  "fields": {
+    "registration_number": "E2E5E2A92",
+    "vehicle_type": "CAR",
+    "rfid_tag": "RFID-E2E-5E2A92",
+    "owner": 7,
+    "is_active": true,
+    "created_at": "2026-10-14T09:34:08.660Z",
+    "updated_at": "2026-10-14T10:22:12.577Z"
+  }
+},
+{
+  "model": "Toll.vehicle",
+  "pk": 8,
+  "fields": {
+    "registration_number": "MP07SH0909",
+    "vehicle_type": "MOTORCYCLE",
+    "rfid_tag": "RFID005",
+    "owner": 4,
+    "is_active": true,
+    "created_at": "2026-10-14T10:57:44.999Z",
+    "updated_at": "2026-10-14T10:57:44.999Z"
+  }
+},
+{
+  "model": "Toll.tollplaza",
+  "pk": 1,
+  "fields": {
+    "name": "Gwalior Toll Plaza",
+    "location": "Gwalior - Agra Highway",
+    "is_active": true,
+    "created_at": "2026-09-24T19:08:26.287Z"
+  }
+},
+{
+  "model": "Toll.tollplaza",
+  "pk": 2,
+  "fields": {
+    "name": "lakshya",
+    "location": "Gwalior - Agra Highway",
+    "is_active": true,
+    "created_at": "2026-10-13T17:59:16.020Z"
+  }
+},
+{
+  "model": "Toll.tollplaza",
+  "pk": 3,
+  "fields": {
+    "name": "radha rani toll plaza",
+    "location": "mumbai-pune",
+    "is_active": true,
+    "created_at": "2026-10-13T19:19:06.026Z"
+  }
+},
+{
+  "model": "Toll.tollplaza",
+  "pk": 4,
+  "fields": {
+    "name": "delhi express",
+    "location": "delhi",
+    "is_active": true,
+    "created_at": "2026-10-13T19:19:18.816Z"
+  }
+},
+{
+  "model": "Toll.tollplaza",
+  "pk": 5,
+  "fields": {
+    "name": "Rajasthan Toll Plaza",
+    "location": "Jaipur",
+    "is_active": true,
+    "created_at": "2026-10-13T19:19:59.753Z"
+  }
+},
+{
+  "model": "Toll.tollrule",
+  "pk": 1,
+  "fields": {
+    "toll_plaza": 1,
+    "vehicle_type": "CAR",
+    "amount": "80.00",
+    "is_active": true,
+    "created_at": "2026-09-24T19:23:27.965Z"
+  }
+},
+{
+  "model": "Toll.tollrule",
+  "pk": 2,
+  "fields": {
+    "toll_plaza": 1,
+    "vehicle_type": "BUS",
+    "amount": "150.00",
+    "is_active": true,
+    "created_at": "2026-09-24T19:23:35.966Z"
+  }
+},
+{
+  "model": "Toll.tollrule",
+  "pk": 3,
+  "fields": {
+    "toll_plaza": 1,
+    "vehicle_type": "TRUCK",
+    "amount": "250.00",
+    "is_active": true,
+    "created_at": "2026-09-24T19:23:50.944Z"
+  }
+},
+{
+  "model": "Toll.tollrule",
+  "pk": 4,
+  "fields": {
+    "toll_plaza": 4,
+    "vehicle_type": "MOTORCYCLE",
+    "amount": "50.00",
+    "is_active": true,
+    "created_at": "2026-10-13T19:20:29.479Z"
+  }
+},
+{
+  "model": "Toll.tollrule",
+  "pk": 5,
+  "fields": {
+    "toll_plaza": 1,
+    "vehicle_type": "MOTORCYCLE",
+    "amount": "50.00",
+    "is_active": true,
+    "created_at": "2026-10-14T11:38:15.444Z"
+  }
+},
+{
+  "model": "Toll.wallet",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "balance": "501.00",
+    "created_at": "2026-09-25T11:08:55.360Z",
+    "updated_at": "2026-10-13T17:44:53.381Z"
+  }
+},
+{
+  "model": "Toll.wallet",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "balance": "4680.00",
+    "created_at": "2026-10-11T18:35:14.384Z",
+    "updated_at": "2026-10-15T18:20:44.434Z"
+  }
+},
+{
+  "model": "Toll.wallet",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "balance": "0.00",
+    "created_at": "2026-10-13T18:11:23.324Z",
+    "updated_at": "2026-10-13T18:11:23.324Z"
+  }
+},
+{
+  "model": "Toll.wallet",
+  "pk": 4,
+  "fields": {
+    "user": 7,
+    "balance": "20.00",
+    "created_at": "2026-10-14T09:34:07.962Z",
+    "updated_at": "2026-10-14T09:34:08.796Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 1,
+  "fields": {
+    "vehicle": 2,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "VERIFIED",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-09-25T11:28:41.741Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 2,
+  "fields": {
+    "vehicle": 2,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "DETECTED",
+    "failure_reason": null,
+    "transaction_time": "2026-09-25T18:51:46.930Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 3,
+  "fields": {
+    "vehicle": 2,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-09-28T08:52:21.000Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 4,
+  "fields": {
+    "vehicle": 2,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "FAILED",
+    "state": "INSUFFICIENT_BALANCE",
+    "failure_reason": "Insufficient wallet balance",
+    "transaction_time": "2026-09-28T09:00:09.621Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 5,
+  "fields": {
+    "vehicle": 4,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "FAILED",
+    "state": "INSUFFICIENT_BALANCE",
+    "failure_reason": "Insufficient wallet balance",
+    "transaction_time": "2026-10-13T18:33:03.163Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 6,
+  "fields": {
+    "vehicle": 4,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-13T18:33:11.515Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 7,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T09:34:08.707Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 8,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T09:34:08.734Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 9,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T09:34:08.751Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 10,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T09:34:08.766Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 11,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T09:34:08.782Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 12,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T09:34:08.799Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 13,
+  "fields": {
+    "vehicle": 7,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "FAILED",
+    "state": "INSUFFICIENT_BALANCE",
+    "failure_reason": "Insufficient wallet balance",
+    "transaction_time": "2026-10-14T09:34:08.813Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 14,
+  "fields": {
+    "vehicle": 4,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T10:20:29.799Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 15,
+  "fields": {
+    "vehicle": 4,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T10:27:14.308Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 16,
+  "fields": {
+    "vehicle": 4,
+    "toll_plaza": 1,
+    "amount": "80.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T11:21:29.657Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 17,
+  "fields": {
+    "vehicle": 8,
+    "toll_plaza": 1,
+    "amount": "50.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-14T11:38:22.218Z"
+  }
+},
+{
+  "model": "Toll.tolltransaction",
+  "pk": 18,
+  "fields": {
+    "vehicle": 8,
+    "toll_plaza": 1,
+    "amount": "50.00",
+    "status": "SUCCESS",
+    "state": "PASSED",
+    "failure_reason": null,
+    "transaction_time": "2026-10-15T18:20:44.436Z"
+  }
+}
+]
